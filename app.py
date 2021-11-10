@@ -14,6 +14,10 @@ from datetime import datetime
 
 app = Flask(__name__)
 
+# we trust longer question less on FAISS, so we will be more likely to use GPT for shorter ques
+FAISS_GPT_RATIO = 0.01
+THRESHOLD = 0.95
+
 QUESTION_BERT_PATH = "resources/all_question_28epoch.pth"
 ANSWER_BERT_PATH = "resources/all_answer_28epoch.pth"
 BERT_MODEL = 'bert-base-multilingual-uncased'
@@ -41,8 +45,6 @@ print('LOADING RESOURCES')
 question_model = BertForMaskedLM.from_pretrained(BERT_MODEL)
 question_dict = torch.load(
     QUESTION_BERT_PATH, map_location=torch.device('cpu'))
-# question_dict = torch.load(
-#     QUESTION_BERT_PATH)
 question_model.load_state_dict(question_dict)
 question_model.eval()
 
@@ -50,8 +52,6 @@ question_model.eval()
 answer_model = BertForMaskedLM.from_pretrained(BERT_MODEL)
 answer_dict = torch.load(
     ANSWER_BERT_PATH, map_location=torch.device('cpu'))
-# answer_dict = torch.load(
-#     ANSWER_BERT_PATH)
 answer_model.load_state_dict(answer_dict)
 answer_model.eval()
 
@@ -67,10 +67,16 @@ faiss_obj = Faiss(EMBEDDINGS_PATH)
 # function for the bot response
 def get_bot_response():
     question = request.args.get('msg')
+    question_length = len(question.split(" "))
     embedding = bert_embed_gen(question, question_model)
-    answer = generate_gpt_ans(question, GPT_tokenizer, GPT_model)
-    faiss_dist, faiss_ans = faiss_obj.get_dist_ans(embedding)
-    return str(str(answer) + " faiss:" + str(faiss_ans))
+    faiss_dist, answer = faiss_obj.get_dist_ans(embedding)
+    print(f"FAISS distance: {faiss_dist}")
+    # print(f"FAISS answer: {answer}")
+    threshold_used = THRESHOLD - question_length*FAISS_GPT_RATIO
+    print(f"Threshold used: {threshold_used}")
+    if faiss_dist < threshold_used:
+        answer = generate_gpt_ans(question, GPT_tokenizer, GPT_model)
+    return answer
 
 @app.route("/question", methods=['POST'])
 def question_asked():
