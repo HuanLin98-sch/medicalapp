@@ -28,7 +28,17 @@ For an in-depth explaination of our training process, please refer to our report
 Different pre-trained BERT models can be used to fine-tune by specifying in the `PRETRAINED_NAME` variable in the training files in the `BERT fine-tuning` directory. The one that is in the code uses the PubMedBERT from hugging face. It also uses the lasses dataset for it's finetuning, a sample Lasse dataset has also been rpovided in the directory. to run this code, a GPU is required since we are using the Trainer class privided by the Transformers library. 
 
 Answers and question BERT encoders are also fine-tuned separately using the *BERT fine-tuning/answer_bert_training.py* and *BERT fine-tuning/question_bert_training.py* files respectively.
-### FAISS Search
+
+### FAISS Similarity Search
+FAISS Similarity Search is used to create more Question Answer pair embeddings to be used for GPT training. It is based on the FAISS library. The codes for create more Question Answer pair embeddings can be found at FAISS_Similarity_Search folder. 
+
+There are three .ipynb files and each of them are used for different embeddings due to the format of its dictionary construct. 
+
+Lasse dataset's embedding should be used with *FAISS_Similarity_Search/FAISS_Similarity_Search_Lasse.ipynb*.
+
+MedDiaglog Chinese dataset's embedding should be used with *FAISS_Similarity_Search/FAISS_Similarity_Search_MedDiaglog_Chinese.ipynb*
+
+To use both datasets' embeddings together, it should be used with *FAISS_Similarity_Search/FAISS_Similarity_Search_BOTH.ipynb*.
 
 ### GPT Training
 GPT2-small was used as the base model for finetuning. Most of the implementation is largely based on finetuning code provided by the *Huggingface* library. The code for finetuning can be found at *gpt_training/gpt_training.py*
