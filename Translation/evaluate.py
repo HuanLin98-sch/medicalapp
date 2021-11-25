@@ -8,29 +8,35 @@ import pandas as pd
 import numpy as np
 import spacy
 
-# translator = GoogleTranslator(source="auto", target="en")
-# translator = Translator()
-# translator = translate.Client()
-# model = EasyNMT("opus-mt")
-
+## Step 1
+## read the original dictionary
 # df = pd.read_csv("./data/raw_data/data.csv", encoding="utf-8")
+## drop the redundant columns
 # df = df.drop(columns=["id", "type", "subtype", "description"])
+## write to new csv file
 # df.to_csv(
 #     "./data/raw_data/data_processed.csv", index=False, encoding="utf_8_sig"
 # )
 
+## read the csv file (read the appropriate file for the model)
 # df = pd.read_csv(
-#     "./data/raw_data/data-mbart.csv",
+#     "./data/raw_data/data.csv",
 #     encoding="utf-8",
 #     names=["zh", "eng", "opus-mt", "mbart50", "m2m"],
 # )
 
+## create new columns (only run this part of the code once)
 # df[["opus-mt", "mbart50", "m2m"]] = df[["opus-mt", "mbart50", "m2m"]].astype(
 #     str
 # )
 
 # print(df.head())
 
+## Step 2
+## select model opus-mt
+# model = EasyNMT("opus-mt")
+
+## for each row, translate the text
 # for index, row in df.iterrows():
 #     translation = model.translate(
 #         row["zh"], source_lang="zh", target_lang="en"
@@ -41,9 +47,11 @@ import spacy
 
 # df.to_csv("./data/raw_data/data-opus.csv", encoding="utf_8_sig", index=False)
 
-
+## Step 3
+## select model mbart50
 # model = EasyNMT("mbart50_m2m")
 
+## for each row, translate the text
 # for index, row in df.iterrows():
 #     translation = model.translate(
 #         row["zh"], source_lang="zh", target_lang="en"
@@ -54,9 +62,11 @@ import spacy
 
 # df.to_csv("./data/raw_data/data-mbart.csv", encoding="utf_8_sig", index=False)
 
-
+## Step 4
+## select model m2m
 # model = EasyNMT("m2m_100_418M")
 
+## for each row, translate the text
 # for index, row in df.iterrows():
 #     translation = model.translate(
 #         row["zh"], source_lang="zh", target_lang="en"
@@ -69,8 +79,11 @@ import spacy
 #     "./data/raw_data/data-translated.csv", encoding="utf_8_sig", index=False
 # )
 
+# Step 5
+# load the spacy model
 nlp = spacy.load("en_core_web_lg")
 
+# read the csv file
 df = pd.read_csv(
     "./data/raw_data/data-translated.csv",
     encoding="utf-8",
@@ -86,10 +99,12 @@ df = pd.read_csv(
     ],
 )
 
+# create new columns
 df[["opus-mt-sim", "mbart50-sim", "m2m-sim"]] = df[
     ["opus-mt-sim", "mbart50-sim", "m2m-sim"]
 ].astype(str)
 
+# for each row, calculate the vector similarity between the translated text and the original text
 for index, row in df.iterrows():
     try:
         text = nlp(row["eng"])
@@ -112,6 +127,7 @@ for index, row in df.iterrows():
     except:
         print(f'error occured at {row["eng"]}')
 
+# write to new csv file
 df.to_csv(
     "./data/translated_data/data-evaluated.csv",
     encoding="utf_8_sig",
