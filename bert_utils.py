@@ -6,7 +6,7 @@ tokenizer = BertTokenizer.from_pretrained('bert-base-multilingual-uncased')
 def create_mbert_tokens(title):
     # print(f"preparing embedding for {title}")
     tokens = {'input_ids': [], 'attention_mask': []}
-    new_tokens = tokenizer.encode_plus(title, max_length=32, truncation=True,
+    new_tokens = tokenizer.encode_plus(title, max_length=240, truncation=True,
                                             padding='max_length', return_tensors='pt')
 
     # tokens['input_ids'] = new_tokens['input_ids'][0]
