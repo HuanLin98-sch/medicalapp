@@ -71,7 +71,7 @@ def get_bot_response():
     embedding = bert_embed_gen(question, question_model)
     faiss_dist, answer = faiss_obj.get_dist_ans(embedding)
     print(f"FAISS distance: {faiss_dist}")
-    # print(f"FAISS answer: {answer}")
+    # dynamic threshold algo:
     threshold_used = THRESHOLD - question_length*FAISS_GPT_RATIO
     print(f"Threshold used: {threshold_used}")
     if faiss_dist < threshold_used:
