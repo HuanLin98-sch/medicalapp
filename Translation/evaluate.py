@@ -113,5 +113,7 @@ for index, row in df.iterrows():
         print(f'error occured at {row["eng"]}')
 
 df.to_csv(
-    "./data/translated_data/data-evaluated.csv", encoding="utf-8", index=False
+    "./data/translated_data/data-evaluated.csv",
+    encoding="utf_8_sig",
+    index=False,
 )
