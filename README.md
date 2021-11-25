@@ -3,7 +3,7 @@
 Developed by: Team 7 - Edwin, Huan Lin, Wei Jie, Zhi An
 
 ## Introduction
-Dr Robot is a general medical conversational chatbot developed by Team 7 as part of our CS425 final project. It is a hybrid chatbot that combines both retrieval-based (Finetuned BERT + FAISS Search) answers with generative-based(GPT2) answers using a dynamic thresholding via our own decision module.
+Dr Robot is a general medical conversational chatbot developed by Team 7 as part of our CS425 final project. It is a hybrid chatbot that combines both retrieval-based (Finetuned BERT + FAISS Search) answers with generative-based (Finetuned GPT2) answers using a dynamic thresholding via our own decision module.
 
 ## Quick Start
 1. Open a terminal session in the root folder
