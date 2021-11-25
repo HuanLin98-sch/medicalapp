@@ -32,7 +32,7 @@ Lasse dataset's embedding should be used with *FAISS_Similarity_Search/FAISS_Sim
 
 MedDiaglog Chinese dataset's embedding should be used with *FAISS_Similarity_Search/FAISS_Similarity_Search_MedDiaglog_Chinese.ipynb*
 
-To use both datasets together, it should be used with *FAISS_Similarity_Search/FAISS_Similarity_Search_BOTH.ipynb*.
+To use both datasets' embeddings together, it should be used with *FAISS_Similarity_Search/FAISS_Similarity_Search_BOTH.ipynb*.
 
 ### GPT Training
 GPT2-small was used as the base model for finetuning. Most of the implementation is largely based on finetuning code provided by the *Huggingface* library. The code for finetuning can be found at *gpt_training/gpt_training.py*
