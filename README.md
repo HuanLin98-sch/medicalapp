@@ -20,9 +20,11 @@ https://drive.google.com/drive/folders/1GEcx7XywfUmGmztXb3ljI8RkLeo90bN1?usp=sha
 You can simply download all the files in the gdrive above and create a folder called `resources` in the root directory and paste those files in.
 
 ## Training Details
-For an in-depth explaination of our training process, please refer to our report.
+For an in-depth explanation of our training process, please refer to our report.
 
 ### Translation & Data Preparation
+
+Our team used the dataset provided by [MedDialog](https://drive.google.com/drive/folders/11sglwm6-cY7gjeqlZaMxL_MDKDMLdhym). We created a Python script `translate.py` that reads and translates the texts to English using the `opus-mt` model from [EasyNMT](https://github.com/UKPLab/EasyNMT). We chose this model because it had the fastest translation speed at a decent translation accuracy as compared to the other models. The models were evaluated using `evaluate.py` on a [dictionary](https://github.com/HikaruSama233/Chinese-English-dictionary-of-medical-and-health) of Chinese-English medical terms crawled from CNKI.
 
 ### BERT Finetuning
 Different pre-trained BERT models can be used to fine-tune by specifying in the `PRETRAINED_NAME` variable in the training files in the `BERT fine-tuning` directory. The one that is in the code uses the PubMedBERT from hugging face. It also uses the lasses dataset for it's finetuning, a sample Lasse dataset has also been rpovided in the directory. to run this code, a GPU is required since we are using the Trainer class privided by the Transformers library. 
@@ -48,6 +50,5 @@ To generate answers using a finetuned model on a test set of questions, please r
 ### Evaluation
 There were 2 test datasets used for evaluation - MedDialog-EN and Lasse Perturbed. These can both be found under *evaluation*. 
 
-Calcuation of BLUERT-20 scores can be done using the script *evaluation/bluert20.py*
-
+Calculation of BLUERT-20 scores can be done using the script *evaluation/bluert20.py*
 
