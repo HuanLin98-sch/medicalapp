@@ -31,6 +31,8 @@ Different pre-trained BERT models can be used to fine-tune by specifying in the 
 
 Answers and question BERT encoders are also fine-tuned separately using the *BERT fine-tuning/answer_bert_training.py* and *BERT fine-tuning/question_bert_training.py* files respectively.
 
+*bert_utils.py* contains the script to embed a given input sentence into embeddings which will then be used in the FAISS similarity search and hybrid model.
+
 ### FAISS Similarity Search
 FAISS Similarity Search is used to create more Question Answer pair embeddings to be used for GPT training. It is based on the FAISS library. The codes for create more Question Answer pair embeddings can be found at FAISS_Similarity_Search folder. 
 
