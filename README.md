@@ -27,8 +27,11 @@ For an in-depth explaination of our training process, please refer to our report
 FAISS Similarity Search is used to create more Question Answer pair embeddings to be used for GPT training. It is based on the FAISS library. The codes for create more Question Answer pair embeddings can be found at FAISS_Similarity_Search folder. 
 
 There are three .ipynb files and each of them are used for different embeddings due to the format of its dictionary construct. 
-Lasse dataset's embedding should be used with *FAISS_Similarity_Search/FAISS_Similarity_Search_Lasse.ipynb*. 
-MedDiaglog Chinese dataset's embedding should be used with *FAISS_Similarity_Search/FAISS_Similarity_Search_MedDiaglog_Chinese.ipynb* 
+
+Lasse dataset's embedding should be used with *FAISS_Similarity_Search/FAISS_Similarity_Search_Lasse.ipynb*.
+
+MedDiaglog Chinese dataset's embedding should be used with *FAISS_Similarity_Search/FAISS_Similarity_Search_MedDiaglog_Chinese.ipynb*
+
 To use both datasets together, it should be used with *FAISS_Similarity_Search/FAISS_Similarity_Search_BOTH.ipynb*.
 
 ### GPT Training
