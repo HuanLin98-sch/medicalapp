@@ -12,7 +12,9 @@ Dr Robot is a general medical conversational chatbot developed by Team 7 as part
 4. Begin Chatting!
 
 ## Chatbot Implementation
-
+Resources for running the model can be found at the following Google Drive link. This includes the saved model checkpoints for Multilingual BERT (Question & Answer), the embeddings of the training set and the finetuned GPT2 model (FAISS-mBert-Lasse) 
+https://drive.google.com/drive/folders/1GEcx7XywfUmGmztXb3ljI8RkLeo90bN1?usp=sharing
+*Please use an SMU account to access*
 
 ## Training Details
 For an in-depth explaination of our training process, please refer to our report.
