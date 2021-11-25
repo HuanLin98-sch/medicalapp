@@ -7,7 +7,7 @@ Dr Robot is a general medical conversational chatbot developed by Team 7 as part
 
 ## Quick Start
 1. Open a terminal session in the root folder
-2. Download and paste the requireed resources to run the application using the instructions below
+2. Download and save the required resources to run the application using the instructions below
 3. ```flask run```
 4. The chatbot should now be accessible at the localhost :)
 5. Begin Chatting!
