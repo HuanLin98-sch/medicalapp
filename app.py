@@ -16,7 +16,6 @@ app = Flask(__name__)
 
 # we trust longer question less on FAISS, so we will be more likely to use GPT for shorter ques
 FAISS_GPT_RATIO = 0.01
-THRESHOLD = 0.95
 
 QUESTION_BERT_PATH = "resources/all_question_28epoch.pth"
 ANSWER_BERT_PATH = "resources/all_answer_28epoch.pth"
@@ -72,36 +71,11 @@ def get_bot_response():
     faiss_dist, answer = faiss_obj.get_dist_ans(embedding)
     print(f"FAISS distance: {faiss_dist}")
     # dynamic threshold algo:
-    threshold_used = THRESHOLD - question_length*FAISS_GPT_RATIO
+    threshold_used = 1.0 - question_length*FAISS_GPT_RATIO
     print(f"Threshold used: {threshold_used}")
     if faiss_dist < threshold_used:
         answer = generate_gpt_ans(question, GPT_tokenizer, GPT_model)
     return answer
-
-@app.route("/question", methods=['POST'])
-def question_asked():
-    try:
-        question = request.json.get('question')
-        embedding = bert_embed_gen(question, question_model)
-        answer = generate_gpt_ans(question, GPT_tokenizer, GPT_model)
-        faiss_dist, faiss_ans = faiss_obj.get_dist_ans(embedding)
-
-    except Exception as e:
-        return jsonify(
-            {
-                "message": "An error occurred while processing the question.",
-                "error": str(e)
-            }
-        ), 500
-
-    return jsonify(
-        {
-            "gpt_answer": answer,
-            "faiss_answer": faiss_ans,
-            "faiss_dist": str(faiss_dist)
-        }
-    ), 201
-
 
 if __name__ == '__main__':
     # init()
